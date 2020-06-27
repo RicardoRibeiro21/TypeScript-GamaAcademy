@@ -55,3 +55,72 @@ criar({
     idade: 1,
     nome: 'Ricardo Ribeiro Lopes'
 });
+
+// Never - Tipo que nunca ocorre
+function loopInfinito () : never {
+    while(true) {}
+}
+
+function erro(msg: string) : never {
+    throw new Error(msg);
+}
+
+// Por causa do return, ja seta a função com o tipo never
+function falha () {
+    return erro('Algo falhou');
+}
+
+// Union Types
+const nota: string | number = 12;
+function exibirNota(nota: number | string){
+    console.log(`A nota é: ${nota}`);
+}
+
+exibirNota('10')
+
+// Alias - Criando atalhos para tipos
+type Funcionario = {
+    nome: string;
+    sobrenome: string;
+    dataNascimento: Date;
+}
+// type Funcionarios = Array<Funcionario>;
+const funcionarios: Funcionario []= [{
+    nome: 'Ricardo', 
+    sobrenome: 'Ribeiro',
+    dataNascimento: new Date()
+},
+{
+    nome: 'Vitor', 
+    sobrenome: 'Fugita',
+    dataNascimento: new Date()
+}];
+function tratarFuncionarios (funcionarios: Funcionario[]) {
+    for (let funcionario of funcionarios) {
+        console.log('Nome do funcionario ', funcionario.nome)
+    }
+}
+
+let altura: number | null = 1.5;
+altura = null; 
+
+// Criando campo opcional
+type Contato = {
+    nome: string,
+    telefone: string,
+    celular?: string
+}
+
+// Criando objeto com objeto opcional
+const contato: Contato = {
+    nome: 'Ricardo',
+    telefone: '11 99479-7993'    
+}
+
+// Type Assertion
+const minhaIdade: any = 23;
+(minhaIdade as number).toString();
+// (<number>minhaIdade).toString();
+// const input = document.getElementById("numero1") as HTMLInputElement;
+const input = <HTMLInputElement>document.getElementById("numero1");
+console.log(input.value);
